@@ -1,0 +1,6 @@
+# Ignore no-extension files, as they are binary files
+# Following rules are from StackOverflow:
+#	How do I add files without dots in them (all extension-less files) to the gitignore file?
+*
+!/**/
+!*.*
