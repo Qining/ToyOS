@@ -14,6 +14,9 @@ disk_load:
 	mov cl, 0x02 ; which sector to start? 0x01 is our boot sector (Note, not 0x00!)
 				 ; start at 0x02 then.
 	mov ch, 0x00 ; ch <- cylinder
+				 ; actually the higher 10bits of cx is used for cylinder/head...
+				 ; and it is weird, seems like the 2bits in cl is the higher bits,
+				 ; while the 8bits in ch is the lower bits....(?)
 	mov dh, 0x00 ; dh <- head number
 	; dl is set to drive number by our caller(actually BIOS).
 
