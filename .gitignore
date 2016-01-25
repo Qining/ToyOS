@@ -4,3 +4,9 @@
 *
 !/**/
 !*.*
+
+# vim backup
+*.swp
+
+# gedit backup
+*.*~
