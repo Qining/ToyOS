@@ -9,3 +9,5 @@ to examine the disassembly code of the bin:
  ndisasm -b 32 function.bin
 
 objdump can be used for the .o file
+
+you can also use xxd to dump the .bin and .o file. (that is more like hexdump)
