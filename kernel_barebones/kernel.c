@@ -1,7 +1,7 @@
 const unsigned int TERM_VIDEO_MEM_BASE = 0xb8000;
-unsigned int TERM_WIDTH = 80u;
-unsigned int TERM_HEIGHT = 25u;
-unsigned int BYTES_PER_PRINT_CHAR = 2u;
+const unsigned int TERM_WIDTH = 80u;
+const unsigned int TERM_HEIGHT = 25u;
+const unsigned int BYTES_PER_PRINT_CHAR = 2u;
 
 const char MSG_WELCOME[] = "ToyOS: <kernel> Welcome!\n";
 
@@ -20,10 +20,8 @@ void flush_term_screen() {
 }
 
 char* calculate_term_cursor_memory_address(unsigned int row, unsigned int col) {
-  return (char*)(BYTES_PER_PRINT_CHAR *
-                     (((row % TERM_HEIGHT) + col / TERM_WIDTH) * TERM_WIDTH +
-                      (col % TERM_WIDTH)) +
-                 TERM_VIDEO_MEM_BASE);
+  unsigned int bucket_loc = row * TERM_WIDTH + col;
+  return (char*)(TERM_VIDEO_MEM_BASE + bucket_loc * BYTES_PER_PRINT_CHAR);
 }
 
 void print_string_kernel(const char* str, unsigned int row, unsigned int col) {
@@ -44,5 +42,5 @@ void main() {
   *video_memory = 'X';
 
   flush_term_screen();
-  print_string_kernel(MSG_WELCOME, 1u,0u);
+  print_string_kernel(MSG_WELCOME, 0u,0u);
 }

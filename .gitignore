@@ -14,5 +14,8 @@
 # binary file
 *.bin
 
+# elf file
+.elf
+
 # .o file
 *.o
