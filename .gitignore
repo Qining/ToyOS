@@ -15,7 +15,7 @@
 *.bin
 
 # elf file
-.elf
+*.elf
 
 # .o file
 *.o
