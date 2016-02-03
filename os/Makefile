@@ -34,5 +34,10 @@ debug: os-image.bin kernel_whole.elf
 	gdb -ex "target remote localhost:1234" -ex "symbol-file kernel_whole.elf"
 
 clean:
-	rm *.bin *.o *.dis *.elf
-	rm kernel/*.o boot/*.bin boot/*.o drivers/*.o
+	rm *.bin
+	rm *.elf
+	rm kernel/*.o
+	rm boot/*.bin
+	rm boot/*.o
+	rm drivers/*.o
+	rm *.dis

@@ -32,7 +32,7 @@ load_kernel:
 
 	; copy the kernel block to its address
 	mov bx, KERNEL_ADDR
-	mov dh, 01 ; this goes to al in disk_load.
+	mov dh, 03 ; this goes to al in disk_load.
 			   ; we use it as an arg here.
 			   ; This should 1, not 2 as the tutorial says!
 			   ; Because we actually have only one sector for our kernel.
