@@ -1,9 +1,21 @@
-#include "basic_screen.h"
-#include "basic_io_ports.h"
+#include "drivers/basic_screen.h"
+#include "drivers/basic_io_ports.h"
 
-// private functions
 
-// Get memory offset from column and row value
+
+/**
+ * @name Private functions
+ * @{ */
+
+/**
+ * @brief Get memory offset from column and row number.
+ *
+ * @param row
+ * @param col
+ *
+ * @return The memory offset which can be used with video memory base address to
+ * get the complete address for the cell specified by row and col number.
+ */
 unsigned int get_offset_from_row_col(unsigned int row, unsigned int col) {
   return BASIC_SCREEN_BYTES_PER_CELL *
          (((row + col / BASIC_SCREEN_MAX_COL) % BASIC_SCREEN_MAX_ROW) *
@@ -11,17 +23,33 @@ unsigned int get_offset_from_row_col(unsigned int row, unsigned int col) {
           col % BASIC_SCREEN_MAX_COL);
 }
 
-// Get row from memory offset
+/**
+ * @brief Get row number from a given memory offset.
+ *
+ * @param offset
+ *
+ * @return The row number.
+ */
 unsigned int get_row_from_offset(unsigned int offset) {
   return offset / BASIC_SCREEN_BYTES_PER_CELL / BASIC_SCREEN_MAX_COL;
 }
 
-// Get col from memory offset
+/**
+ * @brief Get col number from a given memory offset.
+ *
+ * @param offset
+ *
+ * @return The column number.
+ */
 unsigned int get_col_from_offset(unsigned int offset) {
   return (offset / BASIC_SCREEN_BYTES_PER_CELL) % BASIC_SCREEN_MAX_COL;
 }
 
-// Get current cursor offset in video memory
+/**
+ * @brief Get the memory offset of the current cursor position.
+ *
+ * @return The memory offset.
+ */
 unsigned int get_current_cursor_offset() {
   unsigned int cursor_offset;
   // To get the cursor offset, which is a dword (long/32 bit) data:
@@ -44,7 +72,11 @@ unsigned int get_current_cursor_offset() {
   return cursor_offset;
 }
 
-// Set cursor offset in video memory
+/**
+ * @brief Set the cursor to point to a specified memory position.
+ *
+ * @param offset The specified memory offset.
+ */
 void set_cursor_offset(unsigned int offset) {
   offset /= BASIC_SCREEN_BYTES_PER_CELL;
   basic_io_ports_set_byte(BASIC_SCREEN_CTRL, 14);
@@ -53,6 +85,13 @@ void set_cursor_offset(unsigned int offset) {
   basic_io_ports_set_byte(BASIC_SCREEN_DATA, (unsigned char)(offset & 0xff));
 }
 
+/**
+ * @brief Set the contents of video memory starting at specified offset. This
+ * will print the corresponding string with "white on black" color.
+ *
+ * @param str Null-terminated string.
+ * @param offset The video memory offset.
+ */
 void print_at_offset(const char* str, unsigned int offset) {
   while (*str != '\0') {
     char* cursor = (char*)(BASIC_SCREEN_VIDEO_MEMORY_BASE + offset);
@@ -62,10 +101,16 @@ void print_at_offset(const char* str, unsigned int offset) {
     str += 1;
   }
 }
+/**  @} */
 
-// public functions
 
-// clear screen
+/**
+ * @name Public functions.
+ * @{ */
+
+/**
+ * @brief Clear the screen.
+ */
 void kclear_screen() {
   for (unsigned int i = 0u; i < BASIC_SCREEN_MAX_COL * BASIC_SCREEN_MAX_ROW;
        i++) {
@@ -75,15 +120,25 @@ void kclear_screen() {
   }
 }
 
-// print at specified row and col
+/**
+ * @brief Print null-terminated string at specified position.
+ *
+ * @param str The null-terminated string.
+ * @param row The row number.
+ * @param col The column number.
+ */
 void kprint_at(const char* str, unsigned int row, unsigned int col) {
   unsigned int offset = get_offset_from_row_col(row, col);
   print_at_offset(str, offset);
 }
 
-// print at current location
+/**
+ * @brief Print null-terminated string at current cursor position.
+ *
+ * @param str The null-terminated string.
+ */
 void kprint(const char* str) {
   unsigned int offset = get_current_cursor_offset();
   print_at_offset(str, offset);
 }
-
+/**  @} */

@@ -1,6 +1,8 @@
+#include "drivers/basic_io_ports.h"
+
 unsigned char basic_io_ports_get_byte(unsigned short port) {
   unsigned char result;
-  
+
   // "=a" (result) means, 'result' should be the dst register of the
   // instruction.
   // It seems that result is mapped to %%al, and port is mapped to %%dx.
