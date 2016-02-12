@@ -48,9 +48,9 @@ load_kernel:
 ; It seems that nasm does not have relative including support.
 ; As we are calling 'nasm' at the parent directory through Makefile,
 ; we have to add boot/
-%include "boot/boot_sect_print.nasm"
-%include "boot/boot_sect_disk_load.nasm"
-%include "boot/boot_sect_print_hex.nasm"
+%include "boot_sect_print.nasm"
+%include "boot_sect_disk_load.nasm"
+%include "boot_sect_print_hex.nasm"
 
 [bits 32]
 ; critical label, switch_to_pm -> init_pm (internally) => BEGIN_PM
@@ -68,10 +68,10 @@ BEGIN_PM:
 	jmp $
 
 
-%include "boot/32bit-switch.nasm"
+%include "32bit-switch.nasm"
 ; 32bit-switch.nasm doesn't include gdt, so we need to include it here.
-%include "boot/32bit-gdt.nasm"
-%include "boot/32bit-print.nasm"
+%include "32bit-gdt.nasm"
+%include "32bit-print.nasm"
 
 
 BOOT_DRIVE:

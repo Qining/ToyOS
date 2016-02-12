@@ -1,8 +1,6 @@
 #include "drivers/basic_screen.h"
 #include "drivers/basic_io_ports.h"
 
-
-
 /**
  * @name Private functions
  * @{ */
@@ -108,9 +106,6 @@ void print_at_offset(const char* str, unsigned int offset) {
  * @name Public functions.
  * @{ */
 
-/**
- * @brief Clear the screen.
- */
 void kclear_screen() {
   for (unsigned int i = 0u; i < BASIC_SCREEN_MAX_COL * BASIC_SCREEN_MAX_ROW;
        i++) {
@@ -120,23 +115,11 @@ void kclear_screen() {
   }
 }
 
-/**
- * @brief Print null-terminated string at specified position.
- *
- * @param str The null-terminated string.
- * @param row The row number.
- * @param col The column number.
- */
 void kprint_at(const char* str, unsigned int row, unsigned int col) {
   unsigned int offset = get_offset_from_row_col(row, col);
   print_at_offset(str, offset);
 }
 
-/**
- * @brief Print null-terminated string at current cursor position.
- *
- * @param str The null-terminated string.
- */
 void kprint(const char* str) {
   unsigned int offset = get_current_cursor_offset();
   print_at_offset(str, offset);

@@ -19,3 +19,9 @@
 
 # .o file
 *.o
+
+# cmake build directory
+*/build/
+*/build-*/
+build/
+build-*/

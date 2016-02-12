@@ -1,5 +1,5 @@
-#include "../drivers/basic_io_ports.h"
-#include "../drivers/basic_screen.h"
+#include "drivers/basic_io_ports.h"
+#include "drivers/basic_screen.h"
 
 const char MSG_WELCOME[] = "ToyOS: <kernel> Welcome!\n";
 

@@ -11,16 +11,16 @@ function(default_cpp_compile_options TARGET)
     -fno-stack-protector)
 endfunction(default_cpp_compile_options)
 
-function(default_nasm_elf_options TARGET)
-  target_compile_options(${TARGET} PRIVATE
+function(default_nasm_elf_compile_options TARGET)
+  target_compile_options(${TARGET} BEFORE PRIVATE
     -f elf)
   set_target_properties(${TARGET} PROPERTIES SUFFIX ".elf")
   set_target_properties(${TARGET} PROPERTIES PREFIX "")
-endfunction(default_nasm_elf_options)
+endfunction(default_nasm_elf_compile_options)
 
-function(default_nasm_bin_options TARGET)
-  target_compile_options(${TARGET} PRIVATE
+function(default_nasm_bin_compile_options TARGET)
+  target_compile_options(${TARGET} BEFORE PRIVATE
     -f bin)
   set_target_properties(${TARGET} PROPERTIES SUFFIX ".bin")
   set_target_properties(${TARGET} PROPERTIES PREFIX "")
-endfunction(default_nasm_bin_options)
+endfunction(default_nasm_bin_compile_options)
