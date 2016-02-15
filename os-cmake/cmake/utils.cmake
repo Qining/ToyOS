@@ -1,7 +1,8 @@
 function(default_c_compile_options TARGET)
   target_compile_options(${TARGET} PRIVATE
     -std=c99 -m32 -march=i386 -ffreestanding -g
-    -fno-exceptions -nostdlib -nostdinc -fno-stack-protector)
+	-fno-exceptions -nostdlib -nostdinc -fno-stack-protector
+	)
 endfunction(default_c_compile_options)
 
 function(default_cpp_compile_options TARGET)
@@ -10,17 +11,3 @@ function(default_cpp_compile_options TARGET)
     -fno-rtti -fno-exceptions -nostdlib -nostdinc
     -fno-stack-protector)
 endfunction(default_cpp_compile_options)
-
-function(default_nasm_elf_compile_options TARGET)
-  target_compile_options(${TARGET} BEFORE PRIVATE
-    -f elf)
-  set_target_properties(${TARGET} PROPERTIES SUFFIX ".elf")
-  set_target_properties(${TARGET} PROPERTIES PREFIX "")
-endfunction(default_nasm_elf_compile_options)
-
-function(default_nasm_bin_compile_options TARGET)
-  target_compile_options(${TARGET} BEFORE PRIVATE
-    -f bin)
-  set_target_properties(${TARGET} PROPERTIES SUFFIX ".bin")
-  set_target_properties(${TARGET} PROPERTIES PREFIX "")
-endfunction(default_nasm_bin_compile_options)

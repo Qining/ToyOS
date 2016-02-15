@@ -30,6 +30,15 @@ add_custom_command(OUTPUT bootsect.bin
 
 add_custom_target(bootsect ALL DEPENDS bootsect.bin)
 
-add_library(kernel_entry STATIC
-  kernel_entry.nasm)
-default_nasm_elf_compile_options(kernel_entry)
+# static library doesn't work even for kernel_entry.elf.
+# This might be relevant to the linking map. Once we have it 'compiled' as a
+# static library, we sort of lost the controll to fix its location in the
+# generated binary, so that our 'jump to kernel' may fail.
+
+add_custom_command(OUTPUT kernel_entry.elf
+  COMMAND nasm -f elf -i${ASM_INCLUDE_DIR}
+  -o "${CMAKE_CURRENT_BINARY_DIR}/kernel_entry.elf"
+  "${CMAKE_CURRENT_SOURCE_DIR}/kernel_entry.nasm"
+  DEPENDS kernel_entry.nasm)
+
+add_custom_target(kernel_entry ALL DEPENDS kernel_entry.elf)

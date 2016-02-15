@@ -7,9 +7,11 @@ include(cmake/utils.cmake)
 
 project(ToyOS)
 
-include_directories(${ToyOS_SOURCE_DIR}/include)
 
 add_subdirectory(boot)
+
+include_directories(${ToyOS_SOURCE_DIR}/include)
+
 add_subdirectory(drivers)
 add_subdirectory(kernel)
 
